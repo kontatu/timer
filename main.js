@@ -6,10 +6,14 @@ const stopTimer = document.getElementById("stopTimer");
 
 let sec;
 let timer;
+let hours;
+let minutes;
+let seconds;
+
 
 setTime.addEventListener('click', function () {
     sec = inputTime.value;
-    nowTime.textContent = `${sec}：セット完了です`
+    nowTime.textContent = secTimer() + `  セット完了です`
 });
 
 startTimer.addEventListener('click', function () {
@@ -19,7 +23,7 @@ startTimer.addEventListener('click', function () {
 
 const countDown = function () {
     sec -= 1;
-    nowTime.textContent = sec;
+    nowTime.textContent = secTimer();
     if (sec === 0) {
         clearInterval(timer);
         alert('終了');
@@ -28,7 +32,12 @@ const countDown = function () {
 
 stopTimer.addEventListener('click', function () {
     clearInterval(timer);
-    nowTime.textContent = `${sec}：ストップ`;
+    nowTime.textContent = secTimer() + `  ストップ`;
 });
 
-
+const secTimer = function () {
+    hours = Math.floor(sec / 3600);
+    minutes = Math.floor((sec % 3600) / 60);
+    seconds = sec % 60;
+    return `${hours}:${minutes}:${seconds}`
+}
